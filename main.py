@@ -4,6 +4,7 @@ import lib.SS as SS
 import lib.IP as IP
 import lib.EW as EW
 import time
+import httpx
 
 
 app = FastAPI()
@@ -75,3 +76,9 @@ async def get_total_order():
 
     return len(total), res
 
+
+@app.get("/test")
+def test():
+    res = httpx.get("https://soffice.11st.co.kr/view/intro")
+    print(res)
+    return res.text
