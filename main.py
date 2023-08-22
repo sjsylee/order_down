@@ -78,7 +78,7 @@ async def get_total_order():
 
 
 @app.get("/test")
-def test():
-    res = httpx.get("https://soffice.11st.co.kr/view/intro")
-    print(res)
-    return res.text
+async def test():
+    client = httpx.AsyncClient()
+    t = await SS.get_token("5gSMwnldGQntHeiFEEpT9T", "$2a$04$Ipceo0Lb9ovv1omStZQhfO", client)
+    return t
