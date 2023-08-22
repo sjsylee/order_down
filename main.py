@@ -24,25 +24,25 @@ async def root():
 @app.get("/get_total_order")
 async def get_total_order():
     start = time.time()
-    # cp = await CP.get_all()
+    cp = await CP.get_all()
     ss = await SS.get_all()
     ip = await IP.get_all()
     ew = await EW.get_all()
 
-    total = ss + ip + ew
+    total = cp + ss + ip + ew
     # 계정, 스토어 분류
     # 앞으로 계정 추가시 계정 이니셜 변경 수요 생길 수 있음
 
     # 리손
-    # l_ = {"L": {
-    #     "CP": [o for o in total if o["account"] == "L" and o["store"] == "CP"],
-    #     "SS": [o for o in total if o["account"] == "L" and o["store"] == "SS"],
-    #     "IP": [o for o in total if o["account"] == "L" and o["store"] == "IP"],
-    #     "ST": [o for o in total if o["account"] == "L" and o["store"] == "ST"],
-    #     "AU": [o for o in total if o["account"] == "L" and o["store"] == "AU"],
-    #     "GM": [o for o in total if o["account"] == "L" and o["store"] == "GM"],
-    #     "LO": [o for o in total if o["account"] == "L" and o["store"] == "LO"],
-    # }}
+    l_ = {"L": {
+        "CP": [o for o in total if o["account"] == "L" and o["store"] == "CP"],
+        "SS": [o for o in total if o["account"] == "L" and o["store"] == "SS"],
+        "IP": [o for o in total if o["account"] == "L" and o["store"] == "IP"],
+        "ST": [o for o in total if o["account"] == "L" and o["store"] == "ST"],
+        "AU": [o for o in total if o["account"] == "L" and o["store"] == "AU"],
+        "GM": [o for o in total if o["account"] == "L" and o["store"] == "GM"],
+        "LO": [o for o in total if o["account"] == "L" and o["store"] == "LO"],
+    }}
     # 서전
     s_ = {"S": {
         "CP": [o for o in total if o["account"] == "S" and o["store"] == "CP"],
@@ -75,7 +75,7 @@ async def get_total_order():
     }}
 
     # 총 주문
-    res = [s_, o_, e_]
+    res = [l_, s_, o_, e_]
     end = time.time()
 
     print(f"총 작업 {round(end - start, 5)} 초 소요")
