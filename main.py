@@ -29,7 +29,7 @@ async def get_total_order():
     ip = await IP.get_all()
     ew = await EW.get_all()
 
-    total = cp + ss + ip + ew
+    total = ss + ip + ew
     # 계정, 스토어 분류
     # 앞으로 계정 추가시 계정 이니셜 변경 수요 생길 수 있음
 
