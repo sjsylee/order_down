@@ -1,3 +1,5 @@
+import json
+
 from fastapi import FastAPI
 import lib.CP as CP
 import lib.SS as SS
@@ -5,6 +7,10 @@ import lib.IP as IP
 import lib.EW as EW
 import time
 import httpx
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 app = FastAPI()
@@ -80,5 +86,6 @@ async def get_total_order():
 @app.get("/test")
 async def test():
     client = httpx.AsyncClient()
-    t = await SS.get_token("5gSMwnldGQntHeiFEEpT9T", "$2a$04$Ipceo0Lb9ovv1omStZQhfO", client)
+    config = json.loads(os.environ.get("ss_config"))
+    t = await SS.get_token(**config, client=client)
     return t
