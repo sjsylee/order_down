@@ -1,5 +1,4 @@
 import json
-
 from fastapi import FastAPI
 import lib.CP as CP
 import lib.SS as SS

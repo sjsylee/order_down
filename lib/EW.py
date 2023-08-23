@@ -135,8 +135,14 @@ async def get_all():
         del t_data[1]
         del t_data[2]
 
+        # 배송 메세지 가 없는 경우
         if len(t_data) == 4:
             t_data.insert(3, "")
+
+        # 통관 번호, 배송 메세지 가 없는 경우
+        if len(t_data) == 3:
+            t_data.insert(3, "")
+            t_data.insert(4, "")
 
         per_data = {
             "orderder_name": t_data[0].split("(")[0].strip(),
