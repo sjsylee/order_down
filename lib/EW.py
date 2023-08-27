@@ -84,7 +84,11 @@ async def get_all():
         row_sku = sel_r.xpath("//td/div/text()").getall()
         row_sku = [t.replace("\n", "").strip() for t in row_sku]
         row_sku = list(filter(lambda data: data != "", row_sku))
-        sku = re.search(r'\((.*?)\)', row_sku[-1]).group(1)
+        try:
+            sku = re.search(r'\((.*?)\)', row_sku[-1]).group(1)
+        except AttributeError:
+            # 이지 위너에 SKU 가 없는 경우
+            sku = "보관 상품코드 없음"
         sku_list.append(sku)
 
         # 스토어 정보 추출
