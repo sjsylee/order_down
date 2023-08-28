@@ -148,9 +148,15 @@ async def get_all():
             t_data.insert(3, "")
             t_data.insert(4, "")
 
+        orderder_name = t_data[0].split("(")[0].strip()
+        try:
+            orderer_phone = re.search(r'\((.*?)\)', t_data[0][1:]).group(1).split("/")[1].strip()
+        except IndexError:
+            orderer_phone = ""
+
         per_data = {
-            "orderder_name": t_data[0].split("(")[0].strip(),
-            "orderer_phone": re.search(r'\((.*?)\)', t_data[0][1:]).group(1).split("/")[1].strip(),
+            "orderder_name": orderder_name,
+            "orderer_phone": orderer_phone,
             "receiver": t_data[1].split("(")[0].strip(),
             "receiver_phone": re.search(r'\((.*?)\)', t_data[1]).group(1).split("/")[1].strip(),
             "post_code": re.search(r'\[(.*?)]', t_data[2]).group(1),

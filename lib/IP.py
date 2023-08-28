@@ -17,7 +17,7 @@ HEADERS = {
 
 
 async def ip_order_cnt(login_id, login_pwd, account):
-    client = httpx.AsyncClient(timeout=None)
+    client = httpx.AsyncClient(timeout=2, verify=False)
     client.headers = HEADERS
 
     body = {
@@ -26,7 +26,15 @@ async def ip_order_cnt(login_id, login_pwd, account):
         "loginId": login_id,
         "loginPwd": login_pwd
     }
-    login_and_get_session = await client.post("https://seller.interpark.com/login/process", data=body)
+    # 오후 1시정도 부터 인터 파크 접속이 불안정 한데에 따른 에러
+    try:
+        login_and_get_session = await client.post("https://seller.interpark.com/login/process", data=body)
+    except httpx.ReadTimeout:
+        print("Time Out...")
+        return [], account
+    except TimeoutError:
+        print("Time Out...")
+        return [], account
 
     now = datetime.now()
     before_date = now - timedelta(days=5)
@@ -39,15 +47,21 @@ async def ip_order_cnt(login_id, login_pwd, account):
     url = f"https://seller.interpark.com/api/orders/acknowledge?orderSendStep=acknowledge&orderStatus=50&" \
           f"detailedSearchType=&detailedSearchValue=&searchPeriodType=orderDate&" \
           f"startDate={start_date}T15%3A00%3A00Z&endDate={end_date}T14%3A59%3A00Z&page={page}&size={size}"
-
-    res = await client.get(url=url)
+    try:
+        res = await client.get(url=url)
+    except httpx.ReadTimeout:
+        print("Time Out...")
+        return [], account
+    except TimeoutError:
+        print("Time Out...")
+        return [], account
 
     try:
         data = json.loads(res.text)
         data = data["data"]
     except json.decoder.JSONDecodeError:
         data = "ERROR!!\n ** CHECK OUT YOUR COOKIES $ PAYLOADS **"
-        return []
+        return [], account
 
     ip_res = data["orders"]
 
@@ -80,10 +94,10 @@ async def get_all():
 
     return total
 
-if __name__ == '__main__':
-    start = time.time()
-    res_ = asyncio.run(get_all())
-    end = time.time()
-
-    print(res_)
-    print(f"{round(end - start, 5)} 초 소요")
+# if __name__ == '__main__':
+#     start = time.time()
+#     res_ = asyncio.run(get_all())
+#     end = time.time()
+#
+#     print(res_)
+#     print(f"{round(end - start, 5)} 초 소요")
