@@ -72,9 +72,17 @@ async def get_total_order():
         "GM": [o for o in total if o["account"] == "E" and o["store"] == "GM"],
         "LO": [o for o in total if o["account"] == "E" and o["store"] == "LO"],
     }}
+    # 동반
+    db_ = {"DB": {
+        "CP": [o for o in total if o["account"] == "DB" and o["store"] == "CP"],
+        "SS": [o for o in total if o["account"] == "DB" and o["store"] == "SS"],
+        "ST": [o for o in total if o["account"] == "DB" and o["store"] == "ST"],
+        "AU": [o for o in total if o["account"] == "DB" and o["store"] == "AU"],
+        "GM": [o for o in total if o["account"] == "DB" and o["store"] == "GM"],
+    }}
 
     # 총 주문
-    res = [l_, s_, o_, e_]
+    res = [l_, s_, o_, e_, db_]
     end = time.time()
 
     print(f"총 작업 {round(end - start, 5)} 초 소요")
