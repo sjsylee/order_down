@@ -76,9 +76,11 @@ async def get_total_order():
     db_ = {"DB": {
         "CP": [o for o in total if o["account"] == "DB" and o["store"] == "CP"],
         "SS": [o for o in total if o["account"] == "DB" and o["store"] == "SS"],
+        "IP": [o for o in total if o["account"] == "DB" and o["store"] == "IP"],
         "ST": [o for o in total if o["account"] == "DB" and o["store"] == "ST"],
         "AU": [o for o in total if o["account"] == "DB" and o["store"] == "AU"],
         "GM": [o for o in total if o["account"] == "DB" and o["store"] == "GM"],
+        "LO": [o for o in total if o["account"] == "DB" and o["store"] == "LO"],
     }}
 
     # 총 주문
