@@ -26,9 +26,11 @@ async def ip_order_cnt(login_id, login_pwd, account):
         "loginId": login_id,
         "loginPwd": login_pwd
     }
+    print(body)
     # 오후 1시정도 부터 인터 파크 접속이 불안정 한데에 따른 에러
     try:
         login_and_get_session = await client.post("https://seller.interpark.com/login/process", data=body)
+        print(login_and_get_session)
     except httpx.ReadTimeout:
         print("Time Out...")
         return [], account
@@ -44,11 +46,16 @@ async def ip_order_cnt(login_id, login_pwd, account):
     page = 1
     size = 30
 
-    url = f"https://seller.interpark.com/api/orders/acknowledge?orderSendStep=acknowledge&orderStatus=50&" \
+    url_n = f"https://seller.interpark.com/api/orders/acknowledge?orderSendStep=acknowledge&orderStatus=40&" \
+          f"detailedSearchType=&detailedSearchValue=&searchPeriodType=orderDate&" \
+          f"startDate={start_date}T15%3A00%3A00Z&endDate={end_date}T14%3A59%3A00Z&page={page}&size={size}"
+    # 발주 확인 된 주문 건
+    url_d = f"https://seller.interpark.com/api/orders/acknowledge?orderSendStep=acknowledge&orderStatus=50&" \
           f"detailedSearchType=&detailedSearchValue=&searchPeriodType=orderDate&" \
           f"startDate={start_date}T15%3A00%3A00Z&endDate={end_date}T14%3A59%3A00Z&page={page}&size={size}"
     try:
-        res = await client.get(url=url)
+        res_n = await client.get(url=url_n)
+        res_d = await client.get(url=url_d)
     except httpx.ReadTimeout:
         print("Time Out...")
         return [], account
@@ -57,13 +64,17 @@ async def ip_order_cnt(login_id, login_pwd, account):
         return [], account
 
     try:
-        data = json.loads(res.text)
-        data = data["data"]
+        data_n = json.loads(res_n.text)
+        data_n = data_n["data"]
+
+        data_d = json.loads(res_d.text)
+        data_d = data_d["data"]
     except json.decoder.JSONDecodeError:
-        data = "ERROR!!\n ** CHECK OUT YOUR COOKIES $ PAYLOADS **"
+        data_n = "ERROR!!\n ** CHECK OUT YOUR COOKIES $ PAYLOADS **"
+        data_d = "ERROR!!\n ** CHECK OUT YOUR COOKIES $ PAYLOADS **"
         return [], account
 
-    ip_res = data["orders"]
+    ip_res = data_d["orders"] + data_n["orders"]
 
     return ip_res, account
 

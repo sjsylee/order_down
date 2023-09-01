@@ -65,27 +65,30 @@ async def get_all():
     total = []
 
     for orders, account in responses:
-        for order in orders:
-            item = order["orderItems"][0]
-            oversea_info = order["overseaShippingInfoDto"]
+        try:
+            for order in orders:
+                item = order["orderItems"][0]
+                oversea_info = order["overseaShippingInfoDto"]
 
-            order_data = {
-                "store": "CP",
-                "account": account,
-                "sku": item["externalVendorSkuCode"],
-                "vendorItemName": item["vendorItemName"],
-                "vendorItemId": item["productId"],
-                "orderId": order["orderId"],
-                "shippingCount": item["shippingCount"],
-                "totalPrice": item["orderPrice"],
-                "orderer": order["orderer"]["name"],
-                "receiver": order["receiver"]["name"],
-                "personalCustomsClearanceCode": oversea_info["personalCustomsClearanceCode"],
-                "ordererPhoneNumber": oversea_info["ordererPhoneNumber"],
-                "shippingId": order["shipmentBoxId"],
-            }
+                order_data = {
+                    "store": "CP",
+                    "account": account,
+                    "sku": item["externalVendorSkuCode"],
+                    "vendorItemName": item["vendorItemName"],
+                    "vendorItemId": item["productId"],
+                    "orderId": order["orderId"],
+                    "shippingCount": item["shippingCount"],
+                    "totalPrice": item["orderPrice"],
+                    "orderer": order["orderer"]["name"],
+                    "receiver": order["receiver"]["name"],
+                    "personalCustomsClearanceCode": oversea_info["personalCustomsClearanceCode"],
+                    "ordererPhoneNumber": oversea_info["ordererPhoneNumber"],
+                    "shippingId": order["shipmentBoxId"],
+                }
 
-            total.append(order_data)
+                total.append(order_data)
+        except TypeError:
+            pass
 
     return total
 
