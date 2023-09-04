@@ -46,6 +46,7 @@ async def ip_order_cnt(login_id, login_pwd, account):
     page = 1
     size = 30
 
+    # 신규 주문 건
     url_n = f"https://seller.interpark.com/api/orders/acknowledge?orderSendStep=acknowledge&orderStatus=40&" \
           f"detailedSearchType=&detailedSearchValue=&searchPeriodType=orderDate&" \
           f"startDate={start_date}T15%3A00%3A00Z&endDate={end_date}T14%3A59%3A00Z&page={page}&size={size}"

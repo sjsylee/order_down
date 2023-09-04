@@ -154,11 +154,16 @@ async def get_all():
         except IndexError:
             orderer_phone = ""
 
+        try:
+            receiver_phone = re.search(r'\((.*?)\)', t_data[1]).group(1).split("/")[1].strip()
+        except IndexError:
+            receiver_phone = re.search(r'\((.*?)\)', t_data[1].split(") ")[1]).group(1).split("/")[1].strip()
+
         per_data = {
             "orderder_name": orderder_name,
             "orderer_phone": orderer_phone,
             "receiver": t_data[1].split("(")[0].strip(),
-            "receiver_phone": re.search(r'\((.*?)\)', t_data[1]).group(1).split("/")[1].strip(),
+            "receiver_phone": receiver_phone,
             "post_code": re.search(r'\[(.*?)]', t_data[2]).group(1),
             "address": t_data[2].split("]")[1].strip(),
             "message": t_data[3],
