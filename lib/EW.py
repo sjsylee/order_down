@@ -39,6 +39,8 @@ def trans_store_code(f_name: str):
         return "LO"
     elif f_name == "11번가":
         return "ST"
+    elif f_name == "쿠팡":
+        return "CP"
 
 
 # 리스트 분할
@@ -181,7 +183,7 @@ async def get_all():
         # print(status)
         # ***************
 
-        if store == "쿠팡" or store == "스마트스토어" or store == "인터파크":
+        if store == "스마트스토어" or store == "인터파크":
             pass
         else:
             if store == "롯데온":
