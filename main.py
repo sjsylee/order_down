@@ -24,7 +24,7 @@ async def root():
 async def get_total_order():
     start = time.time()
     # cp = await CP.get_all()
-    ss = await SS.get_all()
+    # ss = await SS.get_all()
     ip = await IP.get_all()
     ew = await EW.get_all()
 
