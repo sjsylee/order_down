@@ -189,7 +189,7 @@ async def get_all():
         # print(status)
         # ***************
 
-        if store == "스마트스토어" or store == "인터파크":
+        if store == "인터파크":
             pass
         else:
             if store == "롯데온":
