@@ -100,7 +100,7 @@ async def get_total_order():
     }}
 
        # 준승
-    js_ = {"DB": {
+    js_ = {"JS": {
         "CP": [o for o in total if o["account"] == "JS" and o["store"] == "CP"],
         "SS": [o for o in total if o["account"] == "JS" and o["store"] == "SS"],
         "IP": [o for o in total if o["account"] == "JS" and o["store"] == "IP"],
