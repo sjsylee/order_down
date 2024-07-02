@@ -47,6 +47,8 @@ def trans_store_code(f_name: str):
         return "ST"
     elif f_name == "쿠팡":
         return "CP"
+    elif f_name == "스마트스토어":
+        return "SS"
 
 
 # 리스트 분할
