@@ -86,8 +86,30 @@ async def get_total_order():
         "LO": [o for o in total if o["account"] == "DB" and o["store"] == "LO"],
     }}
 
+       # 동구
+    dg_ = {"DG": {
+        "CP": [o for o in total if o["account"] == "DG" and o["store"] == "CP"],
+        "SS": [o for o in total if o["account"] == "DG" and o["store"] == "SS"],
+        "IP": [o for o in total if o["account"] == "DG" and o["store"] == "IP"],
+        "ST": [o for o in total if o["account"] == "DG" and o["store"] == "ST"],
+        "AU": [o for o in total if o["account"] == "DG" and o["store"] == "AU"],
+        "GM": [o for o in total if o["account"] == "DG" and o["store"] == "GM"],
+        "LO": [o for o in total if o["account"] == "DG" and o["store"] == "LO"],
+    }}
+
+       # 준승
+    js_ = {"DB": {
+        "CP": [o for o in total if o["account"] == "JS" and o["store"] == "CP"],
+        "SS": [o for o in total if o["account"] == "JS" and o["store"] == "SS"],
+        "IP": [o for o in total if o["account"] == "JS" and o["store"] == "IP"],
+        "ST": [o for o in total if o["account"] == "JS" and o["store"] == "ST"],
+        "AU": [o for o in total if o["account"] == "JS" and o["store"] == "AU"],
+        "GM": [o for o in total if o["account"] == "JS" and o["store"] == "GM"],
+        "LO": [o for o in total if o["account"] == "JS" and o["store"] == "LO"],
+    }}
+
     # 총 주문
-    res = [l_, s_, o_, e_, db_]
+    res = [l_, s_, o_, e_, db_, dg_, js_]
     end = time.time()
 
     print(f"총 작업 {round(end - start, 5)} 초 소요")
