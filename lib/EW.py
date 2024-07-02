@@ -20,11 +20,11 @@ HEADERS = {
 def trans_account_code(f_name: str):
     if "ogtrading" in f_name:
         return "O"
-    elif "sejeon99" in f_name:
+    elif "sejeon99" in f_name or "sejeon88" in f_name:
         return "S"
     elif "lstraadi" in f_name:
         return "L"
-    elif "eundon99" in f_name:
+    elif "eundon99" in f_name or "eundon88" in f_name:
         return "E"
     elif "donban99" in f_name:
         return "DB"
