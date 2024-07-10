@@ -78,36 +78,36 @@ async def get_total_order():
         "LO": [o for o in total if o["account"] == "E" and o["store"] == "LO"],
     }}
     # 동반
-    db_ = {"DB": {
-        "CP": [o for o in total if o["account"] == "DB" and o["store"] == "CP"],
-        "SS": [o for o in total if o["account"] == "DB" and o["store"] == "SS"],
-        "IP": [o for o in total if o["account"] == "DB" and o["store"] == "IP"],
-        "ST": [o for o in total if o["account"] == "DB" and o["store"] == "ST"],
-        "AU": [o for o in total if o["account"] == "DB" and o["store"] == "AU"],
-        "GM": [o for o in total if o["account"] == "DB" and o["store"] == "GM"],
-        "LO": [o for o in total if o["account"] == "DB" and o["store"] == "LO"],
+    db_ = {"B": {
+        "CP": [o for o in total if o["account"] == "B" and o["store"] == "CP"],
+        "SS": [o for o in total if o["account"] == "B" and o["store"] == "SS"],
+        "IP": [o for o in total if o["account"] == "B" and o["store"] == "IP"],
+        "ST": [o for o in total if o["account"] == "B" and o["store"] == "ST"],
+        "AU": [o for o in total if o["account"] == "B" and o["store"] == "AU"],
+        "GM": [o for o in total if o["account"] == "B" and o["store"] == "GM"],
+        "LO": [o for o in total if o["account"] == "B" and o["store"] == "LO"],
     }}
 
        # 동구
-    dg_ = {"DG": {
-        "CP": [o for o in total if o["account"] == "DG" and o["store"] == "CP"],
-        "SS": [o for o in total if o["account"] == "DG" and o["store"] == "SS"],
-        "IP": [o for o in total if o["account"] == "DG" and o["store"] == "IP"],
-        "ST": [o for o in total if o["account"] == "DG" and o["store"] == "ST"],
-        "AU": [o for o in total if o["account"] == "DG" and o["store"] == "AU"],
-        "GM": [o for o in total if o["account"] == "DG" and o["store"] == "GM"],
-        "LO": [o for o in total if o["account"] == "DG" and o["store"] == "LO"],
+    dg_ = {"G": {
+        "CP": [o for o in total if o["account"] == "G" and o["store"] == "CP"],
+        "SS": [o for o in total if o["account"] == "G" and o["store"] == "SS"],
+        "IP": [o for o in total if o["account"] == "G" and o["store"] == "IP"],
+        "ST": [o for o in total if o["account"] == "G" and o["store"] == "ST"],
+        "AU": [o for o in total if o["account"] == "G" and o["store"] == "AU"],
+        "GM": [o for o in total if o["account"] == "G" and o["store"] == "GM"],
+        "LO": [o for o in total if o["account"] == "G" and o["store"] == "LO"],
     }}
 
        # 준승
-    js_ = {"JS": {
-        "CP": [o for o in total if o["account"] == "JS" and o["store"] == "CP"],
-        "SS": [o for o in total if o["account"] == "JS" and o["store"] == "SS"],
-        "IP": [o for o in total if o["account"] == "JS" and o["store"] == "IP"],
-        "ST": [o for o in total if o["account"] == "JS" and o["store"] == "ST"],
-        "AU": [o for o in total if o["account"] == "JS" and o["store"] == "AU"],
-        "GM": [o for o in total if o["account"] == "JS" and o["store"] == "GM"],
-        "LO": [o for o in total if o["account"] == "JS" and o["store"] == "LO"],
+    js_ = {"J": {
+        "CP": [o for o in total if o["account"] == "J" and o["store"] == "CP"],
+        "SS": [o for o in total if o["account"] == "J" and o["store"] == "SS"],
+        "IP": [o for o in total if o["account"] == "J" and o["store"] == "IP"],
+        "ST": [o for o in total if o["account"] == "J" and o["store"] == "ST"],
+        "AU": [o for o in total if o["account"] == "J" and o["store"] == "AU"],
+        "GM": [o for o in total if o["account"] == "J" and o["store"] == "GM"],
+        "LO": [o for o in total if o["account"] == "J" and o["store"] == "LO"],
     }}
 
     # 총 주문
