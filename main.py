@@ -28,10 +28,10 @@ async def get_total_order():
     ip = await IP.get_all()
     ew = await EW.get_all()
 
-    # 쿠팡 제외...
+    # 쿠팡, 스마트스토어, 인터파크 제외...
     # total = cp + ss + ip + ew
     # total = ss + ip + ew
-    total = ip + ew
+    total = ew
 
     
     # 계정, 스토어 분류
