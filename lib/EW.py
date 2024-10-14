@@ -26,7 +26,7 @@ def trans_account_code(f_name: str):
         return "L"
     elif "eundon99" in f_name or "eundon88" in f_name:
         return "E"
-    elif "donban99" in f_name:
+    elif "dongban99" in f_name:
         return "B"
     elif "dgtrading" in f_name:
         return "G"
