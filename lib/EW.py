@@ -64,7 +64,7 @@ async def get_all():
     client.headers = HEADERS
 
     ew_config = json.loads(os.environ.get("ew_config"))
-    login_and_get_session = await client.post("http://mgr.easywinner.co.kr/login", data=ew_config)
+    await client.post("http://mgr.easywinner.co.kr/login", data=ew_config)
 
     order_data = await client.get(url="https://mgr.easywinner.co.kr/admin/order?do=list_content")
     json_data = json.loads(order_data.text)
@@ -179,7 +179,8 @@ async def get_all():
             "post_code": re.search(r'\[(.*?)]', t_data[2]).group(1),
             "address": t_data[2].split("]")[1].strip(),
             "message": t_data[3],
-            "customs_num": t_data[4]
+            "customs_num": t_data[4],
+            "ew_id": ew_id
         }
         result.append(per_data)
 
@@ -210,16 +211,62 @@ async def get_all():
                 "orderer": td[3],
                 "receiver": td[6],
                 "personalCustomsClearanceCode": per["customs_num"],
-                "ordererPhoneNumber": td[7]
+                "ordererPhoneNumber": td[7],
+                "ew_id": per["ew_id"]
             }
             total.append(order_data)
 
     return total
 
 
+async def order_confirm(trans_id, m_prd_id):
+    client = httpx.AsyncClient(verify=False, timeout=None)
+    client.headers = HEADERS
+    print(trans_id)
+    print(m_prd_id)
+
+    ew_config = json.loads(os.environ.get("ew_config"))
+    await client.post("http://mgr.easywinner.co.kr/login", data=ew_config)
+
+    payload = {
+        "_token": "l0PtYsIoyO6xynBanEf303IqOqH1iGYMd0oTvj8M",
+        "customer_id": "s0008454",
+        "req_url": "http://linkage.easywinner.co.kr/Order/database_job_beaIngChg2.html",
+        "work_cls": "order_confirm",
+        "index_name": "index_ajax",
+        "mode": "search",
+        "date_strss": "register_date",
+        "st_date": "2024-09-15",
+        "la_date": "2024-10-15",
+        "fail_st_date": "2024-10-15",
+        "fail_la_date": "2024-10-15",
+        "order_fail_page": "N",
+        "delivery_status2": "001",
+        "search_field": "user_name",
+        "sort_field": "register_date",
+        "sort": "desc",
+        "exl_num": "181335",
+        "No[]": trans_id,
+        "id[]": trans_id,
+        "_delivery_status[]": "001",
+        f"old_delivery_status_chg_{trans_id}": "001",
+        f"mall_id_{trans_id}": "mall0184",
+        f"customer_id_{trans_id}": "s0008454",
+        f"mall_product_id_{trans_id}": m_prd_id
+    }
+
+    request_data = await client.post(url="https://mgr.easywinner.co.kr/admin/linker/request_group", data=payload)
+    request_data = json.loads(request_data.text)
+
+    if request_data["status"] == "ok":
+        return True
+    else:
+        return False
+
+
 if __name__ == '__main__':
     start = time.time()
-    res_ = asyncio.run(get_all())
+    res_ = asyncio.run(order_confirm("1010633651", "6076399606"))
     end = time.time()
 
     print(res_)

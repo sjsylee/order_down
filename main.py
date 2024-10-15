@@ -127,6 +127,12 @@ async def get_data_by_account(sku: str, db: Session = Depends(get_db)):
     return db_product_db.get_product_data_by_sku(db, sku)
 
 
+@app.get("/order_confirm/{trans_id}/{m_prd_id}")
+async def order_confirm(trans_id, m_prd_id):
+    ew = await EW.order_confirm(trans_id, m_prd_id)
+    return ew
+
+
 @app.get("/test")
 async def test():
     client = httpx.AsyncClient()
