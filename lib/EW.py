@@ -165,6 +165,8 @@ async def get_all():
             orderer_phone = re.search(r'\((.*?)\)', t_data[0][1:]).group(1).split("/")[1].strip()
         except IndexError:
             orderer_phone = ""
+        except AttributeError:
+            orderer_phone = ""
 
         try:
             receiver_phone = re.search(r'\((.*?)\)', t_data[1]).group(1).split("/")[1].strip()
