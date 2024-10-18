@@ -6,6 +6,7 @@ import re
 import time
 import os
 from dotenv import load_dotenv
+from datetime import datetime, timedelta
 
 load_dotenv()
 
@@ -200,7 +201,7 @@ async def get_all():
             pass
         else:
             if store == "롯데온":
-                title = title[2:]
+                title = title
             order_data = {
                 "store": trans_store_code(store),
                 "account": trans_account_code(td[2]),
@@ -231,17 +232,17 @@ async def order_confirm(trans_id, m_prd_id):
     await client.post("http://mgr.easywinner.co.kr/login", data=ew_config)
 
     payload = {
-        "_token": "l0PtYsIoyO6xynBanEf303IqOqH1iGYMd0oTvj8M",
+        # "_token": "l0PtYsIoyO6xynBanEf303IqOqH1iGYMd0oTvj8M",
         "customer_id": "s0008454",
         "req_url": "http://linkage.easywinner.co.kr/Order/database_job_beaIngChg2.html",
         "work_cls": "order_confirm",
         "index_name": "index_ajax",
         "mode": "search",
         "date_strss": "register_date",
-        "st_date": "2024-09-15",
-        "la_date": "2024-10-15",
-        "fail_st_date": "2024-10-15",
-        "fail_la_date": "2024-10-15",
+        "st_date": f"{(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')}",
+        "la_date": f"{datetime.now().strftime('%Y-%m-%d')}",
+        "fail_st_date": f"{datetime.now().strftime('%Y-%m-%d')}",
+        "fail_la_date": f"{datetime.now().strftime('%Y-%m-%d')}",
         "order_fail_page": "N",
         "delivery_status2": "001",
         "search_field": "user_name",
@@ -257,8 +258,12 @@ async def order_confirm(trans_id, m_prd_id):
         f"mall_product_id_{trans_id}": m_prd_id
     }
 
+    print(payload)
+
     request_data = await client.post(url="https://mgr.easywinner.co.kr/admin/linker/request_group", data=payload)
     request_data = json.loads(request_data.text)
+
+    print(request_data)
 
     if request_data["status"] == "ok":
         return True
