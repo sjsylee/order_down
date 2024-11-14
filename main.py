@@ -114,7 +114,9 @@ async def get_total_order(db: Session = Depends(get_db)):
     }}
 
     # 총 주문
-    res = [l_, s_, o_, e_, db_, dg_, js_]
+    # res = [l_, s_, o_, e_, db_, dg_, js_]
+    res = [l_, s_, o_, db_, dg_, js_]
+
     end = time.time()
 
     print(f"총 작업 {round(end - start, 5)} 초 소요")
