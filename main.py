@@ -51,16 +51,30 @@ async def get_total_order(db: Session = Depends(get_db)):
         "GM": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "L" and o["store"] == "GM"],
         "LO": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "L" and o["store"] == "LO"],
     }}
-    # 서전
-    s_ = {"S": {
-        "CP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "CP"],
-        "SS": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "SS"],
-        "IP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "IP"],
-        "ST": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "ST"],
-        "AU": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "AU"],
-        "GM": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "GM"],
-        "LO": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "LO"],
+
+    # 준승
+    js_ = {"J": {
+        "CP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "CP"],
+        "SS": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "SS"],
+        "IP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "IP"],
+        "ST": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "ST"],
+        "AU": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "AU"],
+        "GM": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "GM"],
+        "LO": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "LO"],
     }}
+
+    # ==**== LEGACY ==**==
+    # 서전
+    # s_ = {"S": {
+    #     "CP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "CP"],
+    #     "SS": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "SS"],
+    #     "IP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "IP"],
+    #     "ST": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "ST"],
+    #     "AU": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "AU"],
+    #     "GM": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "GM"],
+    #     "LO": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "S" and o["store"] == "LO"],
+    # }}
+
     # 오금
     o_ = {"O": {
         "CP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "O" and o["store"] == "CP"],
@@ -71,16 +85,17 @@ async def get_total_order(db: Session = Depends(get_db)):
         "GM": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "O" and o["store"] == "GM"],
         "LO": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "O" and o["store"] == "LO"],
     }}
+    # ==**== LEGACY ==**==
     # 은동
-    e_ = {"E": {
-        "CP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "CP"],
-        "SS": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "SS"],
-        "IP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "IP"],
-        "ST": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "ST"],
-        "AU": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "AU"],
-        "GM": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "GM"],
-        "LO": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "LO"],
-    }}
+    # e_ = {"E": {
+    #     "CP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "CP"],
+    #     "SS": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "SS"],
+    #     "IP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "IP"],
+    #     "ST": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "ST"],
+    #     "AU": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "AU"],
+    #     "GM": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "GM"],
+    #     "LO": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "E" and o["store"] == "LO"],
+    # }}
     # 동반
     db_ = {"B": {
         "CP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "B" and o["store"] == "CP"],
@@ -103,19 +118,10 @@ async def get_total_order(db: Session = Depends(get_db)):
         "LO": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "G" and o["store"] == "LO"],
     }}
 
-    # 준승
-    js_ = {"J": {
-        "CP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "CP"],
-        "SS": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "SS"],
-        "IP": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "IP"],
-        "ST": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "ST"],
-        "AU": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "AU"],
-        "GM": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "GM"],
-        "LO": [{**o, **db_product_db.get_product_data_by_sku(db, o['sku'])} for o in total if o["account"] == "J" and o["store"] == "LO"],
-    }}
-
     # 총 주문
-    res = [l_, s_, o_, e_, db_, dg_, js_]
+    # res = [l_, s_, o_, e_, db_, dg_, js_]
+    res = [l_, js_, o_, db_, dg_]
+
     end = time.time()
 
     print(f"총 작업 {round(end - start, 5)} 초 소요")
