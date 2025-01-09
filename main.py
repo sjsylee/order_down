@@ -1,12 +1,6 @@
-import json
 from fastapi import FastAPI, Depends
-import lib.CP as CP
-import lib.SS as SS
-import lib.IP as IP
-import lib.EW as EW
+import lib.SL as SL
 import time
-import httpx
-import os
 from dotenv import load_dotenv
 from db.database import get_db
 from sqlalchemy.orm.session import Session
@@ -27,15 +21,22 @@ async def root():
 @app.get("/get_total_order")
 async def get_total_order(db: Session = Depends(get_db)):
     start = time.time()
+    # *== LEGACY ==*
+
     # cp = await CP.get_all()
     # ss = await SS.get_all()
     # ip = await IP.get_all()
-    ew = await EW.get_all()
+    # ew = await EW.get_all()
 
     # 쿠팡, 스마트스토어, 인터파크 제외...
     # total = cp + ss + ip + ew
     # total = ss + ip + ew
-    total = ew
+
+    # *======================================================================*
+
+    sl = await SL.get_all()
+
+    total = sl
 
     # 계정,스토어 분류
     # 앞으로 계정 추가시 계정 이니셜 변경 수요 생길 수 있음
@@ -122,20 +123,23 @@ async def get_total_order(db: Session = Depends(get_db)):
     return len(total), res
 
 
+@app.get("/get_monthly_order_data_by_date")
+async def get_monthly_order_data_by_date(db: Session = Depends(get_db)):
+    return db_product_db.get_monthly_order_data_by_date(db)
+
+
+@app.get("/get_today_order_data")
+async def get_today_order_data(db: Session = Depends(get_db)):
+    return db_product_db.get_today_order_data(db)
+
+
 @app.get("/get_data_by_sku/{sku}")
 async def get_data_by_account(sku: str, db: Session = Depends(get_db)):
-    return db_product_db.get_product_data_by_sku(db, sku)
+    return db_product_db.get_monthly_order_data_by_date(db, sku)
 
 
-@app.get("/order_confirm/{trans_id}/{m_prd_id}")
-async def order_confirm(trans_id, m_prd_id):
-    ew = await EW.order_confirm(trans_id, m_prd_id)
-    return ew
-
-
-@app.get("/test")
-async def test():
-    client = httpx.AsyncClient()
-    config = json.loads(os.environ.get("ss_config"))
-    t = await SS.get_token(**config, client=client)
-    return t
+# **== LEGACY ==**
+# @app.get("/order_confirm/{trans_id}/{m_prd_id}")
+# async def order_confirm(trans_id, m_prd_id):
+#     ew = await EW.order_confirm(trans_id, m_prd_id)
+#     return ew
