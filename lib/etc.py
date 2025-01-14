@@ -39,7 +39,7 @@ def gen_order_form():
 def trans_store_code(f_name: str):
     if f_name == "인터파크":
         return "IP"
-    elif f_name == "옥션":
+    elif "옥션" in f_name:
         return "AU"
     elif f_name == "지마켓":
         return "GM"
