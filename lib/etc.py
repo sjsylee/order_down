@@ -65,12 +65,12 @@ def trans_account_code(f_name: str):
 
     # == 동구 복수 계정 ==
     elif "dgtrading" in f_name:
-        return "B"
-    elif "dongban99" in f_name:
-        return "B"
-    # ==================
-
+        return "G"
     elif "dgtrade99" in f_name:
         return "G"
+    # ==================
+
+    elif "dongban99" in f_name:
+        return "B"
     elif "jstrade99" in f_name:
         return "J"
